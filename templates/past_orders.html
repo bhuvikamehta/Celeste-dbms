@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Orders</title>
+  <link href="https://fonts.googleapis.com/css2?family=Allura&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='p_order.css') }}" />
+  <style>
+    .review-section {
+      margin-top: 10px;
+      padding: 10px;
+      background-color: #f4f0ed;
+      border-radius: 10px;
+      display: none;
+    }
+    .review-section label {
+      font-weight: bold;
+      display: block;
+      margin-top: 5px;
+    }
+    .review-section select,
+    .review-section textarea {
+      width: 100%;
+      margin-top: 5px;
+      padding: 6px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-family: 'Playfair Display', serif;
+    }
+    .review-section .submit-review {
+      margin-top: 10px;
+      padding: 8px 14px;
+      background-color: #18392B;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .review-section .submit-review:hover {
+      background-color: #0f241c;
+    }
+    .review-confirmation {
+      display: none;
+      margin-top: 8px;
+      color: green;
+      font-weight: bold;
+    }
+    .add-review-btn {
+      margin-top: 8px;
+      background-color: #18392B;
+      color: white;
+      padding: 6px 10px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .add-review-btn:hover {
+      background-color: #0f241c;
+    }
+  </style>
+  <script>
+    function toggleReview(id) {
+      const section = document.getElementById('review-' + id);
+      section.style.display = section.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function submitReview(id) {
+      const section = document.getElementById('review-' + id);
+      const confirm = document.getElementById('confirm-' + id);
+      section.style.display = 'none';
+      confirm.style.display = 'block';
+    }
+  </script>
+</head>
+<body>
+  <div class="header-banner">
+    <h1>My Orders</h1>
+  </div>
+  <div class="container">
+    <p>Total Orders: 2</p>
+    <div class="item-list">
+      <!-- Order with multiple items -->
+      <div class="item-card">
+        <div class="item-info">
+          <h3>Order #5</h3>
+          <p class="order-status">Status: Delivered</p>
+          <p class="order-id">Date: April 3, 2025</p>
+        </div>
+        <div class="order-items">
+          <h4>Items:</h4>
+          <div class="product">
+            <p><strong>Da Milano Leather Handbag</strong></p>
+            <p>Quantity: 1 | Rs 11499.00</p>
+            <button class="add-review-btn" onclick="toggleReview(1)">Add Review</button>
+            <div class="review-section" id="review-1">
+              <label for="rating-1">Rating (1-5):</label>
+              <select id="rating-1">
+                <option value="">Select</option>
+                <option value="5">5</option>
+                <option value="4">4</option>
+                <option value="3">3</option>
+                <option value="2">2</option>
+                <option value="1">1</option>
+              </select>
+              <label for="comment-1">Review:</label>
+              <textarea id="comment-1" rows="2" placeholder="Leave your comment..."></textarea>
+              <button class="submit-review" onclick="submitReview(1)">Submit Review</button>
+            </div>
+            <div class="review-confirmation" id="confirm-1">Review submitted!</div>
+          </div>
+          <div class="product">
+            <p><strong>Vincent Chase Polarized Sunglasses</strong></p>
+            <p>Quantity: 1 | Rs 3499.00</p>
+            <button class="add-review-btn" onclick="toggleReview(2)">Add Review</button>
+            <div class="review-section" id="review-2">
+              <label for="rating-2">Rating (1-5):</label>
+              <select id="rating-2">
+                <option value="">Select</option>
+                <option value="5">5</option>
+                <option value="4">4</option>
+                <option value="3">3</option>
+                <option value="2">2</option>
+                <option value="1">1</option>
+              </select>
+              <label for="comment-2">Review:</label>
+              <textarea id="comment-2" rows="2" placeholder="Leave your comment..."></textarea>
+              <button class="submit-review" onclick="submitReview(2)">Submit Review</button>
+            </div>
+            <div class="review-confirmation" id="confirm-2">Review submitted!</div>
+          </div>
+        </div>
+        <p class="order-total">Total: Rs 14998.00</p>
+      </div>
+
+      <!-- Single-item order -->
+      <div class="item-card">
+        <div class="item-info">
+          <h3>Order #12</h3>
+          <p class="order-status">Status: Shipped</p>
+          <p class="order-id">Date: April 10, 2025</p>
+        </div>
+        <div class="order-items">
+          <h4>Items:</h4>
+          <div class="product">
+            <p><strong>Michael Kors Rose Gold Watch</strong></p>
+            <p>Quantity: 1 | Rs 15499.00</p>
+            <button class="add-review-btn" onclick="toggleReview(3)">Add Review</button>
+            <div class="review-section" id="review-3">
+              <label for="rating-3">Rating (1-5):</label>
+              <select id="rating-3">
+                <option value="">Select</option>
+                <option value="5">5</option>
+                <option value="4">4</option>
+                <option value="3">3</option>
+                <option value="2">2</option>
+                <option value="1">1</option>
+              </select>
+              <label for="comment-3">Review:</label>
+              <textarea id="comment-3" rows="2" placeholder="Leave your comment..."></textarea>
+              <button class="submit-review" onclick="submitReview(3)">Submit Review</button>
+            </div>
+            <div class="review-confirmation" id="confirm-3">Review submitted!</div>
+          </div>
+        </div>
+        <p class="order-total">Total: Rs 2,49,999</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
