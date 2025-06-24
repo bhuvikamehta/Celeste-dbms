@@ -1,17 +1,25 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 import mysql.connector
+import os
 
 app = Flask(__name__)
-app.secret_key = 'imaokayy1'
+app.secret_key = os.getenv('SECRET_KEY', 'imaokayy1')  # Use environment variable in production
 
-# Database connection
-db = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="Mangaf1617",
-    database="CELESTE"
-)
-cursor = db.cursor(dictionary=True)
+# Database connection with environment variables
+try:
+    db = mysql.connector.connect(
+        host=os.getenv('DB_HOST', 'localhost'),
+        user=os.getenv('DB_USER', 'root'),
+        password=os.getenv('DB_PASSWORD', 'Mangaf1617'),
+        database=os.getenv('DB_NAME', 'CELESTE'),
+        ssl_disabled=False if os.getenv('DB_HOST') != 'localhost' else True
+    )
+    cursor = db.cursor(dictionary=True)
+    print("Database connected successfully!")
+except mysql.connector.Error as e:
+    print(f"Database connection failed: {e}")
+    # You might want to use SQLite as fallback for development
+    cursor = None
 
 # @app.route('/')
 # def index():
@@ -197,4 +205,5 @@ def add_to_cart():
 #     return redirect(url_for('login'))
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port, debug=False)
